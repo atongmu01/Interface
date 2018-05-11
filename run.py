@@ -1,4 +1,6 @@
 #coding=utf-8
+import sys
+sys.path.append("/root/.jenkins/workspace/Interface_Auto")
 import unittest
 import time
 import os
