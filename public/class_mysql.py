@@ -1,3 +1,4 @@
+#/usr/
 #coding=utf-8
 
 import mysql.connector
