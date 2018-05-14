@@ -9,13 +9,16 @@ from Interface_Auto.public.class_smtp import Send_Email
 from Interface_Auto.conf.read_path import Config_path
 from Interface_Auto.Interface_register.Register_Request_Test import Register_Request_test
 from Interface_Auto.Interface_recharge.Recharge_Request_Test import Recharge_Request_test
+from Interface_Auto.Interface_put_cash.Put_Cash_Test import Put_Cash_test
+from Interface_Auto.Interface_Bidloan.Bidloan_Test import Bidloan_Request_test
 from Interface_Auto.public import HTMLTestRunnerNew
 
 
 suite=unittest.TestSuite()
 suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Register_Request_test))
 suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Recharge_Request_test))
-#suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Http_Request_test))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Put_Cash_test))
+suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Bidloan_Request_test))
 #取当前时间
 now=time.strftime('%Y-%m-%d_%H_%M_%S')
 path=os.getcwd()
@@ -43,4 +46,4 @@ if __name__=='__main__':
     content = cf.get("EMAIL", "content")
     Send_email = Send_Email(subject, content, sender, pwd,receiver,smtp_server,port)
     Send_email.Add_Attach(path+"\\result\\"+'Http_Request_report'+now+'.html')
-    Send_email.send_email()
+    #Send_email.send_email()

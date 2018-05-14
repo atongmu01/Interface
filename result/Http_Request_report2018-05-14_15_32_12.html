@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>接口测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 120%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">接口测试报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> 小白</p>
+<p class='attribute'><strong>开始时间 : </strong> 2018-05-14 15:32:12</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:26.944816</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 30，通过 25，失败 5，通过率= 83.33%</p>
+
+<p class='description'>用例执行情况</p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 83.33% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 5 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 25 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 30 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 16px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>Interface_Auto.Interface_register.Register_Request_Test.Register_Request_test</td>
+    <td class="text-center">4</td>
+    <td class="text-center">4</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',4)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Register_Request_1: 注册接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse in" align="left">
+    <pre>
+    
+pt1_1: 2018-05-14 15:32:12,603-INFO-Register_Request_Test.py-50-mylogger-日志信息:用例编号为1注册接口GET请求测试,手机号:18685258110
+2018-05-14 15:32:13,348-INFO-Register_Request_Test.py-62-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Register_Request_2: 注册接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse in" align="left">
+    <pre>
+    
+pt1_2: 2018-05-14 15:32:13,445-INFO-Register_Request_Test.py-50-mylogger-日志信息:用例编号为3注册接口GET请求测试,手机号:None
+2018-05-14 15:32:14,032-INFO-Register_Request_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Register_Request_3: 注册接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse in" align="left">
+    <pre>
+    
+pt1_3: 2018-05-14 15:32:14,133-INFO-Register_Request_Test.py-50-mylogger-日志信息:用例编号为5注册接口GET请求测试,手机号:18787658#@5
+2018-05-14 15:32:14,747-INFO-Register_Request_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Register_Request_4: 注册接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse in" align="left">
+    <pre>
+    
+pt1_4: 2018-05-14 15:32:14,888-INFO-Register_Request_Test.py-50-mylogger-日志信息:用例编号为7注册接口GET请求测试,手机号:18685258111
+2018-05-14 15:32:15,491-INFO-Register_Request_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>Interface_Auto.Interface_recharge.Recharge_Request_Test.Recharge_Request_test</td>
+    <td class="text-center">6</td>
+    <td class="text-center">6</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',6)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Recharge_Request_1: 充值接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse in" align="left">
+    <pre>
+    
+pt2_1: 2018-05-14 15:32:15,882-INFO-Recharge_Request_Test.py-49-mylogger-日志信息:用例编号为1充值接口GET请求测试,手机号：18685258110,当前余额为：0.00
+2018-05-14 15:32:16,294-INFO-Recharge_Request_Test.py-72-mylogger-日志信息:用例编号为1充值接口GET请求测试,手机号：18685258110,充值后余额为：0.00
+2018-05-14 15:32:16,463-INFO-Recharge_Request_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Recharge_Request_2: 充值接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse in" align="left">
+    <pre>
+    
+pt2_2: 2018-05-14 15:32:16,879-INFO-Recharge_Request_Test.py-49-mylogger-日志信息:用例编号为2充值接口GET请求测试,手机号：18685258110,当前余额为：0.00
+2018-05-14 15:32:17,325-INFO-Recharge_Request_Test.py-72-mylogger-日志信息:用例编号为2充值接口GET请求测试,手机号：18685258110,充值后余额为：0.00
+2018-05-14 15:32:17,516-INFO-Recharge_Request_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Recharge_Request_3: 充值接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse in" align="left">
+    <pre>
+    
+pt2_3: 2018-05-14 15:32:17,913-INFO-Recharge_Request_Test.py-49-mylogger-日志信息:用例编号为3充值接口GET请求测试,手机号：18685258110,当前余额为：0.00
+2018-05-14 15:32:18,321-INFO-Recharge_Request_Test.py-72-mylogger-日志信息:用例编号为3充值接口GET请求测试,手机号：18685258110,充值后余额为：0.00
+2018-05-14 15:32:18,478-INFO-Recharge_Request_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Recharge_Request_4: 充值接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse in" align="left">
+    <pre>
+    
+pt2_4: 2018-05-14 15:32:18,910-INFO-Recharge_Request_Test.py-49-mylogger-日志信息:用例编号为4充值接口GET请求测试,手机号：18685258110,当前余额为：0.00
+2018-05-14 15:32:19,315-INFO-Recharge_Request_Test.py-72-mylogger-日志信息:用例编号为4充值接口GET请求测试,手机号：18685258110,充值后余额为：0.00
+2018-05-14 15:32:19,482-INFO-Recharge_Request_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Recharge_Request_5: 充值接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse in" align="left">
+    <pre>
+    
+pt2_5: 2018-05-14 15:32:19,910-INFO-Recharge_Request_Test.py-49-mylogger-日志信息:用例编号为5充值接口GET请求测试,手机号：18685258110,当前余额为：0.00
+2018-05-14 15:32:20,335-INFO-Recharge_Request_Test.py-72-mylogger-日志信息:用例编号为5充值接口GET请求测试,手机号：18685258110,充值后余额为：0.00
+2018-05-14 15:32:20,501-INFO-Recharge_Request_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Recharge_Request_6: 充值接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_6'>通过</button>
+    <div id='div_pt2_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_6'>通过</button>
+    <div id='div_pt2_6' class="collapse in" align="left">
+    <pre>
+    
+pt2_6: 2018-05-14 15:32:20,918-INFO-Recharge_Request_Test.py-49-mylogger-日志信息:用例编号为6充值接口GET请求测试,手机号：18685258110,当前余额为：0.00
+2018-05-14 15:32:21,363-INFO-Recharge_Request_Test.py-58-mylogger-日志信息:用例编号为6充值接口GET请求测试,手机号：18685258110,充值后余额为：500.00
+2018-05-14 15:32:21,525-INFO-Recharge_Request_Test.py-62-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>Interface_Auto.Interface_put_cash.Put_Cash_Test.Put_Cash_test</td>
+    <td class="text-center">7</td>
+    <td class="text-center">6</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',7)" class="detail" id='c3'>详细</a></td>
+</tr>
+
+<tr id='pt3_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Put_Cash_1: 提现接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse in" align="left">
+    <pre>
+    
+pt3_1: 2018-05-14 15:32:21,925-INFO-Put_Cash_Test.py-49-mylogger-日志信息:用例编号为1提现接口GET请求测试,手机号：18685258110,当前余额为：500.00
+2018-05-14 15:32:22,339-INFO-Put_Cash_Test.py-72-mylogger-日志信息:用例编号为1提现接口GET请求测试,手机号：18685258110,充值后余额为：500.00
+2018-05-14 15:32:22,527-INFO-Put_Cash_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Put_Cash_2: 提现接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse in" align="left">
+    <pre>
+    
+pt3_2: 2018-05-14 15:32:22,955-INFO-Put_Cash_Test.py-49-mylogger-日志信息:用例编号为2提现接口GET请求测试,手机号：18685258110,当前余额为：500.00
+2018-05-14 15:32:23,372-INFO-Put_Cash_Test.py-72-mylogger-日志信息:用例编号为2提现接口GET请求测试,手机号：18685258110,充值后余额为：500.00
+2018-05-14 15:32:23,536-INFO-Put_Cash_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Put_Cash_3: 提现接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse in" align="left">
+    <pre>
+    
+pt3_3: 2018-05-14 15:32:23,961-INFO-Put_Cash_Test.py-49-mylogger-日志信息:用例编号为3提现接口GET请求测试,手机号：18685258110,当前余额为：500.00
+2018-05-14 15:32:24,391-INFO-Put_Cash_Test.py-72-mylogger-日志信息:用例编号为3提现接口GET请求测试,手机号：18685258110,充值后余额为：500.00
+2018-05-14 15:32:24,552-INFO-Put_Cash_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Put_Cash_4: 提现接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse in" align="left">
+    <pre>
+    
+pt3_4: 2018-05-14 15:32:24,983-INFO-Put_Cash_Test.py-49-mylogger-日志信息:用例编号为4提现接口GET请求测试,手机号：18685258110,当前余额为：500.00
+2018-05-14 15:32:25,427-INFO-Put_Cash_Test.py-72-mylogger-日志信息:用例编号为4提现接口GET请求测试,手机号：18685258110,充值后余额为：500.00
+2018-05-14 15:32:25,628-INFO-Put_Cash_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Put_Cash_5: 提现接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse in" align="left">
+    <pre>
+    
+pt3_5: 2018-05-14 15:32:26,028-INFO-Put_Cash_Test.py-49-mylogger-日志信息:用例编号为5提现接口GET请求测试,手机号：18685258110,当前余额为：500.00
+2018-05-14 15:32:26,491-INFO-Put_Cash_Test.py-72-mylogger-日志信息:用例编号为5提现接口GET请求测试,手机号：18685258110,充值后余额为：500.00
+2018-05-14 15:32:26,653-INFO-Put_Cash_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Put_Cash_6: 提现接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse in" align="left">
+    <pre>
+    
+pt3_6: 2018-05-14 15:32:27,060-INFO-Put_Cash_Test.py-49-mylogger-日志信息:用例编号为6提现接口GET请求测试,手机号：18685258110,当前余额为：500.00
+2018-05-14 15:32:27,512-INFO-Put_Cash_Test.py-72-mylogger-日志信息:用例编号为6提现接口GET请求测试,手机号：18685258110,充值后余额为：500.00
+2018-05-14 15:32:27,675-INFO-Put_Cash_Test.py-76-mylogger-日志信息:GET请求测试结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_7' class='none'>
+    <td class='failCase'><div class='testcase'>test_Put_Cash_7: 提现接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_7'>失败</button>
+    <div id='div_ft3_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_7'>失败</button>
+    <div id='div_ft3_7' class="collapse in" align="left">
+    <pre>
+    
+ft3_7: 2018-05-14 15:32:28,098-INFO-Put_Cash_Test.py-49-mylogger-日志信息:用例编号为7提现接口GET请求测试,手机号：18685258110,当前余额为：500.00
+2018-05-14 15:32:28,174-ERROR-Put_Cash_Test.py-82-mylogger-日志信息:GET请求测试结果错误，用例失败
+Traceback (most recent call last):
+  File "D:\python\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "D:\pycharm\study\Interface_Auto\Interface_put_cash\Put_Cash_Test.py", line 85, in test_Put_Cash
+    raise e
+  File "D:\pycharm\study\Interface_Auto\Interface_put_cash\Put_Cash_Test.py", line 51, in test_Put_Cash
+    self.assertEqual(t.json()[code_name],expect_code) #先检查接口返回数据是否通过
+AssertionError: '20102' != '10001'
+- 20102
++ 10001
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>Interface_Auto.Interface_Bidloan.Bidloan_Test.Bidloan_Request_test</td>
+    <td class="text-center">13</td>
+    <td class="text-center">9</td>
+    <td class="text-center">4</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',13)" class="detail" id='c4'>详细</a></td>
+</tr>
+
+<tr id='ft4_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_Bidloan_Request_01: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_1'>失败</button>
+    <div id='div_ft4_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_1'>失败</button>
+    <div id='div_ft4_1' class="collapse in" align="left">
+    <pre>
+    
+ft4_1: 2018-05-14 15:32:28,441-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为1投资接口GET请求测试,用户ID:2200.01
+2018-05-14 15:32:28,521-ERROR-Bidloan_Test.py-79-mylogger-日志信息:GET请求测试结果错误，用例失败
+Traceback (most recent call last):
+  File "D:\python\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "D:\pycharm\study\Interface_Auto\Interface_Bidloan\Bidloan_Test.py", line 82, in test_Bidloan_Request
+    raise e
+  File "D:\pycharm\study\Interface_Auto\Interface_Bidloan\Bidloan_Test.py", line 54, in test_Bidloan_Request
+    self.assertEqual(t.json()[code_name],expect_code) #先检查接口返回数据是否通过
+AssertionError: '11013' != '11004'
+- 11013
++ 11004
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Bidloan_Request_02: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_2'>通过</button>
+    <div id='div_pt4_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_2'>通过</button>
+    <div id='div_pt4_2' class="collapse in" align="left">
+    <pre>
+    
+pt4_2: 2018-05-14 15:32:28,773-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为2投资接口GET请求测试,用户ID:-2200
+2018-05-14 15:32:29,395-INFO-Bidloan_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_3' class='none'>
+    <td class='failCase'><div class='testcase'>test_Bidloan_Request_03: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_3'>失败</button>
+    <div id='div_ft4_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_3'>失败</button>
+    <div id='div_ft4_3' class="collapse in" align="left">
+    <pre>
+    
+ft4_3: 2018-05-14 15:32:29,790-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为3投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:29,895-ERROR-Bidloan_Test.py-79-mylogger-日志信息:GET请求测试结果错误，用例失败
+Traceback (most recent call last):
+  File "D:\python\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "D:\pycharm\study\Interface_Auto\Interface_Bidloan\Bidloan_Test.py", line 82, in test_Bidloan_Request
+    raise e
+  File "D:\pycharm\study\Interface_Auto\Interface_Bidloan\Bidloan_Test.py", line 54, in test_Bidloan_Request
+    self.assertEqual(t.json()[code_name],expect_code) #先检查接口返回数据是否通过
+AssertionError: '11009' != '11005'
+- 11009
+?     ^
++ 11005
+?     ^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_4' class='none'>
+    <td class='failCase'><div class='testcase'>test_Bidloan_Request_04: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_4'>失败</button>
+    <div id='div_ft4_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_4'>失败</button>
+    <div id='div_ft4_4' class="collapse in" align="left">
+    <pre>
+    
+ft4_4: 2018-05-14 15:32:30,478-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为4投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:30,571-ERROR-Bidloan_Test.py-79-mylogger-日志信息:GET请求测试结果错误，用例失败
+Traceback (most recent call last):
+  File "D:\python\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "D:\pycharm\study\Interface_Auto\Interface_Bidloan\Bidloan_Test.py", line 82, in test_Bidloan_Request
+    raise e
+  File "D:\pycharm\study\Interface_Auto\Interface_Bidloan\Bidloan_Test.py", line 54, in test_Bidloan_Request
+    self.assertEqual(t.json()[code_name],expect_code) #先检查接口返回数据是否通过
+AssertionError: '11009' != '11005'
+- 11009
+?     ^
++ 11005
+?     ^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Bidloan_Request_05: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_5'>通过</button>
+    <div id='div_pt4_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_5'>通过</button>
+    <div id='div_pt4_5' class="collapse in" align="left">
+    <pre>
+    
+pt4_5: 2018-05-14 15:32:31,154-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为5投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:31,776-INFO-Bidloan_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Bidloan_Request_06: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_6'>通过</button>
+    <div id='div_pt4_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_6'>通过</button>
+    <div id='div_pt4_6' class="collapse in" align="left">
+    <pre>
+    
+pt4_6: 2018-05-14 15:32:32,178-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为6投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:32,794-INFO-Bidloan_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Bidloan_Request_07: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_7'>通过</button>
+    <div id='div_pt4_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_7'>通过</button>
+    <div id='div_pt4_7' class="collapse in" align="left">
+    <pre>
+    
+pt4_7: 2018-05-14 15:32:33,235-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为7投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:33,831-INFO-Bidloan_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Bidloan_Request_08: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_8'>通过</button>
+    <div id='div_pt4_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_8'>通过</button>
+    <div id='div_pt4_8' class="collapse in" align="left">
+    <pre>
+    
+pt4_8: 2018-05-14 15:32:33,939-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为8投资接口GET请求测试,用户ID:3221
+2018-05-14 15:32:34,514-INFO-Bidloan_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Bidloan_Request_09: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_9'>通过</button>
+    <div id='div_pt4_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_9'>通过</button>
+    <div id='div_pt4_9' class="collapse in" align="left">
+    <pre>
+    
+pt4_9: 2018-05-14 15:32:34,947-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为9投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:35,547-INFO-Bidloan_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Bidloan_Request_10: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_10'>通过</button>
+    <div id='div_pt4_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_10'>通过</button>
+    <div id='div_pt4_10' class="collapse in" align="left">
+    <pre>
+    
+pt4_10: 2018-05-14 15:32:35,983-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为10投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:36,591-INFO-Bidloan_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_11' class='none'>
+    <td class='failCase'><div class='testcase'>test_Bidloan_Request_11: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_11'>失败</button>
+    <div id='div_ft4_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_11'>失败</button>
+    <div id='div_ft4_11' class="collapse in" align="left">
+    <pre>
+    
+ft4_11: 2018-05-14 15:32:36,997-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为11投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:37,085-ERROR-Bidloan_Test.py-79-mylogger-日志信息:GET请求测试结果错误，用例失败
+Traceback (most recent call last):
+  File "D:\python\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "D:\pycharm\study\Interface_Auto\Interface_Bidloan\Bidloan_Test.py", line 82, in test_Bidloan_Request
+    raise e
+  File "D:\pycharm\study\Interface_Auto\Interface_Bidloan\Bidloan_Test.py", line 54, in test_Bidloan_Request
+    self.assertEqual(t.json()[code_name],expect_code) #先检查接口返回数据是否通过
+AssertionError: '11010' != '11011'
+- 11010
+?     ^
++ 11011
+?     ^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Bidloan_Request_12: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_12'>通过</button>
+    <div id='div_pt4_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_12'>通过</button>
+    <div id='div_pt4_12' class="collapse in" align="left">
+    <pre>
+    
+pt4_12: 2018-05-14 15:32:37,661-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为12投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:38,258-INFO-Bidloan_Test.py-73-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Bidloan_Request_13: 投资接口</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_13'>通过</button>
+    <div id='div_pt4_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_13'>通过</button>
+    <div id='div_pt4_13' class="collapse in" align="left">
+    <pre>
+    
+pt4_13: 2018-05-14 15:32:38,763-INFO-Bidloan_Test.py-52-mylogger-日志信息:用例编号为13投资接口GET请求测试,用户ID:2206
+2018-05-14 15:32:39,382-INFO-Bidloan_Test.py-62-mylogger-日志信息:GET请求测试数据库结果正确，用例通过
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>30</td>
+    <td>25</td>
+    <td>5</td>
+    <td>0</td>
+    <td>通过率：83.33%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>
